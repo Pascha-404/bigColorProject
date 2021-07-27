@@ -1,0 +1,39 @@
+.ColorBox-content,
+.ColorBox-see-more,
+.ColorBox button {
+	text-transform: uppercase;
+}
+
+.ColorBox {
+	width: 20%;
+	height: 25%;
+	display: inline-block;
+	position: relative;
+    cursor: pointer;
+}
+
+.ColorBox-content {
+    padding: 10px;
+    width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.ColorBox-copy-btn {
+	text-align: center;
+	width: 5rem;
+	height: 2rem;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -2.5rem;
+	margin-top: -1rem;
+	border: none;
+}
+
+.ColorBox-see-more{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
