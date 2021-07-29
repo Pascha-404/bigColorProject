@@ -9,15 +9,20 @@
 	height: 25%;
 	display: inline-block;
 	position: relative;
-    cursor: pointer;
+	cursor: pointer;
+	margin: 0 auto;
+	margin-bottom: -3px;
 }
 
 .ColorBox-content {
-    padding: 10px;
-    width: 100%;
+	padding: 10px;
+	width: 100%;
 	position: absolute;
 	left: 0;
 	bottom: 0;
+	letter-spacing: 1px;
+	font-size: 12px;
+	color: black;
 }
 
 .ColorBox-copy-btn {
@@ -30,10 +35,34 @@
 	margin-left: -2.5rem;
 	margin-top: -1rem;
 	border: none;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+	cursor: pointer;
+	color: white;
+	background-color: rgba(255, 255, 255, 0.3);
+	box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.4);
+	font-size: 1rem;
+	outline: none;
 }
 
-.ColorBox-see-more{
-    position: absolute;
-    bottom: 0;
-    right: 0;
+.ColorBox:hover .ColorBox-copy-btn {
+	opacity: 1;
+}
+
+.ColorBox-copy-btn:active{
+	transform: scale(0.98);
+}
+
+.ColorBox-see-more {
+	background-color: rgba(255, 255, 255, 0.3);
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	border: none;
+	color: white;
+	text-align: center;
+	font-size: 12px;
 }
