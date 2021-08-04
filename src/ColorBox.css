@@ -76,7 +76,7 @@
 	transition: transform 0.5s ease-in;
 }
 
-.ColorBox:hover .ColorBox-overlay{
+.ColorBox-overlay.show{
 transform: scale(50);
 opacity: 1;
 z-index: 10;
