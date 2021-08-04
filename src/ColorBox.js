@@ -13,7 +13,7 @@ class ColorBox extends Component {
 		this.setState({ copied: true }, () => {
 			setTimeout(() => {
 				this.setState({ copied: false });
-			}, 1000);
+			}, 1500);
 		});
 	}
 	render() {
@@ -22,9 +22,13 @@ class ColorBox extends Component {
 			<CopyToClipboard text={color} onCopy={this.changeCopieState}>
 				<div className='ColorBox' style={{ backgroundColor: color }}>
 					<div
-						className={`ColorBox-overlay ${this.state.copied && 'show'}`}
+						className={`ColorBox-copy-overlay ${this.state.copied && 'show'}`}
 						style={{ backgroundColor: color }}
 					/>
+					<div className={`ColorBox-copy-msg ${this.state.copied && 'show'}`}>
+						<h1>copied!</h1>
+						<p>{this.props.color}</p>
+					</div>
 					<div className='ColorBox-copy-container'>
 						<div className='ColorBox-content'>
 							<span className='ColorBox-name'>{name}</span>
