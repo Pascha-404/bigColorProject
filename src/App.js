@@ -3,18 +3,20 @@ import Palette from './Palette';
 import './App.css';
 import seedPalettes from './seedPalettes';
 import { generatePalette } from './colorHelpers';
-
-
+import { Route, Switch } from 'react-router-dom';
+import PalettesList from './PalettesList';
 
 class App extends Component {
-  
+	findPalette(id) {
+		return seedPalettes.find(palette => palette.id === id)
+	}
+
 	render() {
-		const palette = generatePalette(seedPalettes[1]);
 		return (
-      <div className='App'>
-        
-				<Palette {...palette} />
-			</div>
+			<Switch>
+				<Route exact path='/' render={() => <PalettesList palettes={seedPalettes} />}></Route>
+				<Route path="/palette/:id" render={(routeProps) => <Palette {...generatePalette(this.findPalette(routeProps.match.params.id))}/> }></Route>
+			</Switch>
 		);
 	}
 }
