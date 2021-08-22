@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import './PalettesList.css';
 import MiniPalette from './MiniPalette';
 
 const styles = {
 	root: {
 		backgroundColor: 'blue',
-		width: '100%',
 		height: '100vh',
         paddingTop: '1.5rem',
         overflow: "hidden",
@@ -16,17 +14,29 @@ const styles = {
 		width: '50%',
 		margin: '0 auto',
 		position: 'realtive',
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "flex-start",
+		flexWrap: "wrap",
 	},
 	nav: {
+		width: "100%",
 		color: 'white',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+		marginBottom: "1rem",
 		'& span': {
 			fontSize: '1.5rem',
 		},
 		'& a': { color: 'white' },
-	},
+	}, palettes: {
+		width: "100%",
+		boxSizing: "border-box",
+		display: "grid",
+		gridTemplateColumns: "repeat(3, 30%)",
+		gridGap: "5%",
+	}
 };
 
 export class PalettesList extends Component {
@@ -40,9 +50,11 @@ export class PalettesList extends Component {
 						<span>React Colors</span>
 						<Link to='/'>Create Palette</Link>
 					</nav>
-					{this.props.palettes.map(palette => (
-						<MiniPalette {...palette} key={palette.id} />
-					))}
+					<div className={classes.palettes}>
+						{this.props.palettes.map(palette => (
+							<MiniPalette {...palette} key={palette.id} />
+						))}
+					</div>
 				</div>
 			</div>
 		);
