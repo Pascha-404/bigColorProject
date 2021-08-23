@@ -7,13 +7,13 @@ const styles = {
 	root: {
 		backgroundColor: 'blue',
 		height: '100vh',
-        paddingTop: '1.5rem',
-        overflow: "hidden",
+		display: "flex",
+		alignItems: "flex-start",
+		justifyContent: "center",
+
 	},
 	container: {
 		width: '50%',
-		margin: '0 auto',
-		position: 'realtive',
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "flex-start",
@@ -25,7 +25,8 @@ const styles = {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		marginBottom: "1rem",
+		paddingTop: "1rem",
+		paddingBottom: "1rem",
 		'& span': {
 			fontSize: '1.5rem',
 		},
