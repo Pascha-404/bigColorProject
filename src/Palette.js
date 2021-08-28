@@ -41,6 +41,7 @@ class Palette extends Component {
 					handleChangeFormat={this.handleChangeFormat}
 					format={format}
 					open={open}
+					showSlider
 				/>
 
 				<div className='Palette-colors'>{colorBoxes}</div>

@@ -53,7 +53,7 @@ function MiniPalette(props) {
 		);
 	});
 	return (
-		<div className={classes.root} onClick={handleGoTo}>
+		<div className={classes.root} onClick={handleGoTo}>  
 			<div className={classes.colors}>{miniBoxes}</div>
 			<h5 className={classes.title}>
 				{paletteName}
