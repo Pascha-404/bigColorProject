@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
+import chroma from 'chroma-js';
 
 const styles = {
 	root: {
 		width: '20%',
-		height: props => props.fullPalette ? "25%" : "50%",
+		height: props => (props.fullPalette ? '25%' : '50%'),
 		display: 'inline-block',
 		position: 'relative',
 		cursor: 'pointer',
@@ -27,6 +28,9 @@ const styles = {
 		color: 'black',
 		textTransform: 'uppercase',
 	},
+	name: {
+		color: props => (chroma(props.background).luminance() <= 0.6 ? 'white' : 'black'),
+	},
 	copyBtn: {
 		textAlign: 'center',
 		width: '5rem',
@@ -40,7 +44,7 @@ const styles = {
 		opacity: '0',
 		transition: 'opacity 0.5s ease',
 		cursor: 'pointer',
-		color: 'white',
+		color: props => (chroma(props.background).luminance() <= 0.6 ? 'white' : 'black'),
 		backgroundColor: 'rgba(255, 255, 255, 0.3)',
 		boxShadow: '2px 3px 3px rgba(0, 0, 0, 0.4)',
 		fontSize: '1rem',
@@ -59,7 +63,7 @@ const styles = {
 		height: '30px',
 		lineHeight: '30px',
 		border: 'none',
-		color: 'white',
+		color: props => (chroma(props.background).luminance() <= 0.6 ? 'white' : 'black'),
 		textAlign: 'center',
 		fontSize: '12px',
 		textTransform: 'uppercase',
@@ -90,7 +94,7 @@ const styles = {
 		justifyContent: 'center',
 		opacity: '0',
 		transform: 'scale(0.1)',
-		color: '#fff',
+		color: props => (chroma(props.background).luminance() <= 0.6 ? 'white' : 'black'),
 		zIndex: '11',
 		'& h1': {
 			width: '100%',
@@ -103,7 +107,10 @@ const styles = {
 			marginBottom: '0',
 		},
 		'& p': {
-			color: 'rgba(255, 255, 255, 0.5)',
+			color: props =>
+				chroma(props.background).luminance() <= 0.6
+					? 'rgba(255, 255, 255, 0.5)'
+					: 'rgba(0, 0, 0, 0.5)',
 			fontSize: '2rem',
 		},
 	},
@@ -135,22 +142,24 @@ class ColorBox extends Component {
 			<CopyToClipboard text={background} onCopy={this.changeCopieState}>
 				<div className={classes.root} style={{ backgroundColor: background }}>
 					<div
-						className={`${classes.copyOverlay} ${
-							this.state.copied && classes.copyOverlayShow
-						}`}
+						className={`${classes.copyOverlay} 
+						${this.state.copied && classes.copyOverlayShow}`}
 						style={{ backgroundColor: background }}
 					/>
+					
 					<div
 						className={`${classes.copyMsg} ${this.state.copied && classes.copyMsgShow}`}>
 						<h1>copied!</h1>
 						<p>{this.props.background}</p>
 					</div>
+
 					<div className='ColorBox-copy-container'>
 						<div className={classes.content}>
-							<span>{name}</span>
+							<span className={classes.name}>{name}</span>
 						</div>
 						<button className={classes.copyBtn}>copy</button>
 					</div>
+
 					{seeMoreBtn && (
 						<Link to={seeMoreUrl} onClick={e => e.stopPropagation()}>
 							<span className={classes.seeMore}>more</span>
