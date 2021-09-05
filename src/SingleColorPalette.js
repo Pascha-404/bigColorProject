@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import ColorBox from './ColorBox';
+import PaletteFooter from './PaletteFooter';
 import { withStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 import styles from "./styles/SingleColorPaletteStyles"
@@ -43,10 +44,7 @@ export class SingleColorPalette extends Component {
 					</div>
 				</div>
 
-				<footer className={classes.footer}>
-					{palette.paletteName}
-					<span className={classes.emoji}>{palette.emoji}</span>
-				</footer>
+				<PaletteFooter paletteName={palette.paletteName} emoji={palette.emoji}/>
 			</div>
 		);
 	}
