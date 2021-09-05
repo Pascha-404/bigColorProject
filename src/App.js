@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Palette from './Palette';
-import './App.css';
 import seedPalettes from './seedPalettes';
 import { generatePalette } from './colorHelpers';
 import { Route, Switch } from 'react-router-dom';
