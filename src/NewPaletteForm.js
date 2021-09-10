@@ -12,7 +12,6 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -36,7 +35,7 @@ export class NewPaletteForm extends Component {
 	}
 
 	render() {
-		const { classes, theme } = this.props;
+		const { classes } = this.props;
 		const { open } = this.state;
 		return (
 			<div className={classes.root}>
@@ -70,7 +69,7 @@ export class NewPaletteForm extends Component {
 					}}>
 					<div className={classes.drawerHeader}>
 						<IconButton onClick={this.handleDrawerClose}>
-							{theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+							<ChevronLeftIcon />
 						</IconButton>
 					</div>
 					<Divider />
