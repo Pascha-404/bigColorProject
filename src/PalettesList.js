@@ -18,7 +18,7 @@ export class PalettesList extends Component {
 				<div className={classes.container}>
 					<nav className={classes.nav}>
 						<span>React Colors</span>
-						<Link to='/'>Create Palette</Link>
+						<Link to='/palette/new'>Create Palette</Link>
 					</nav>
 					<div className={classes.palettes}>
 						{this.props.palettes.map(palette => (
