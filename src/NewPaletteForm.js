@@ -12,6 +12,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import DraggableColorbox from './DraggableColorbox';
 import styles from './styles/NewPaletteFormStyles';
 
 function NewPaletteForm() {
@@ -97,7 +98,7 @@ function NewPaletteForm() {
 					[classes.contentShift]: open,
 				})}>
 				<div className={classes.drawerHeader} />
-				{colors.map((color, idx) => <h2 key={idx}>{color}</h2>)}
+				{colors.map((color, idx) => <DraggableColorbox key={idx} color={color}/>)}
 			</main>
 		</div>
 	);
