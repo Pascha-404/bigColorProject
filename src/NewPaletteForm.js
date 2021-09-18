@@ -9,15 +9,16 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { ChromePicker } from "react-color"
-import Button from "@material-ui/core/Button"
+import { ChromePicker } from 'react-color';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import styles from "./styles/NewPaletteFormStyles"
+import styles from './styles/NewPaletteFormStyles';
 
 function NewPaletteForm() {
 	const classes = styles();
 	const [open, setOpen] = React.useState(false);
-	const [currentColor, changeCurrentColor] = React.useState('rgb(63, 81, 181)');
+	const [currentColor, changeCurrentColor] = React.useState('#3F51B5');
+	const [colors, setColors] = React.useState(['#3F51B5']);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -26,6 +27,10 @@ function NewPaletteForm() {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
+
+	const addColor = (newColor) => {
+		setColors(colors => [...colors, newColor]);
+	}
 
 	return (
 		<div className={classes.root}>
@@ -66,15 +71,23 @@ function NewPaletteForm() {
 				<div className={classes.drawerMain}>
 					<h2>Design Your Palette</h2>
 					<div className={classes.btnWrap}>
-						<Button variant='contained'>clear palette</Button>
-						<Button variant='contained'>random color</Button>
+						<Button variant='contained' color='secondary'>
+							clear palette
+						</Button>
+						<Button variant='contained' color='primary'>
+							random color
+						</Button>
 					</div>
 					<ChromePicker
 						color={currentColor}
 						onChangeComplete={newColor => changeCurrentColor(newColor)}
+						disableAlpha
+						width="100%"
 					/>
-					<TextField id='filled-basic' label='Color Name' variant='filled' />
-					<Button variant='contained' style={{ backgroundColor: currentColor.hex}} fullWidth={true}>
+					<div className={classes.textfield}>
+						<TextField id='filled-basic' label='Color Name' variant='filled' />
+					</div>
+					<Button variant='contained' color="primary" style={{ backgroundColor: currentColor.hex }} onClick={() => addColor(currentColor.hex)}>
 						Add color
 					</Button>
 				</div>
@@ -84,32 +97,7 @@ function NewPaletteForm() {
 					[classes.contentShift]: open,
 				})}>
 				<div className={classes.drawerHeader} />
-				<Typography paragraph>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-					incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim
-					praesent elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet.
-					Semper risus in hendrerit gravida rutrum quisque non tellus. Convallis convallis
-					tellus id interdum velit laoreet id donec ultrices. Odio morbi quis commodo odio
-					aenean sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-					integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate eu
-					scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis imperdiet
-					massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-					arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi
-					tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-				</Typography>
-				<Typography paragraph>
-					Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget
-					nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim neque
-					volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus.
-					Purus sit amet volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-					Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt ornare massa
-					eget egestas purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-					tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant morbi
-					tristique senectus et. Adipiscing elit duis tristique sollicitudin nibh sit.
-					Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-					accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices
-					sagittis orci a.
-				</Typography>
+				{colors.map((color, idx) => <h2 key={idx}>{color}</h2>)}
 			</main>
 		</div>
 	);
