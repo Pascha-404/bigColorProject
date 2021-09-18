@@ -43,19 +43,25 @@ const styles = makeStyles(theme => ({
 	},
 	drawerMain: {
 		height: "100%",
+		width: "90%",
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: "center",
 		justifyContent: "center",
+		margin: "0 auto",
 	},
 	btnWrap: {
 		display: "flex",
-		width: "90%",
+		width: "100%",
 		marginBottom: "1rem",
 		"& span": {
 			fontSize: "0.8rem",
 			
-		}
+		},
+	},
+	textfield: {
+		marginTop: "1rem",
+		marginBottom: "1rem",
 	},
 	content: {
 		flexGrow: 1,
