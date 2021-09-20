@@ -3,10 +3,10 @@ import { withStyles } from '@material-ui/styles'
 import styles from "./styles/DraggableColorboxStyles"
 
 function DraggableColorbox(props) {
-    const { classes, color } = props;
+    const { classes, name } = props;
     return (
         <div className={classes.root}>
-            {color}
+            {name}
         </div>
     )
 }
