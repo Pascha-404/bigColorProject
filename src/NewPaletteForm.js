@@ -19,7 +19,10 @@ function NewPaletteForm() {
 	const classes = styles();
 	const [open, setOpen] = React.useState(false);
 	const [currentColor, changeCurrentColor] = React.useState('#3F51B5');
-	const [colors, setColors] = React.useState(['#3F51B5']);
+	const [colors, setColors] = React.useState([{ color: '#3F51B5', name: 'orca blue' }]);
+	const [validationError, setValidationError] = React.useState(false);
+	const [errorText, setErrorText] = React.useState('');
+	const [colorName, setColorName] = React.useState('');
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -29,9 +32,58 @@ function NewPaletteForm() {
 		setOpen(false);
 	};
 
-	const addColor = (newColor) => {
+	const validateColor = (color, colorName) => {
+		let doubleColor = 0;
+		let doubleName = 0;
+		colors.forEach(c => {
+			if (c.name.toLowerCase() === colorName.toLowerCase()) {
+				doubleName += 1;
+			}
+			if (c.color === color) {
+				doubleColor += 1;
+			}
+		});
+		if (doubleColor > 0 && doubleName > 0) {
+			return 'hasBoth';
+		}
+		if (doubleColor > 0) {
+			return 'hasColor';
+		}
+		if (doubleName > 0) {
+			return 'hasName';
+		} else {
+			return 'valid';
+		}
+	};
+
+	const addColor = (color, colorName) => {
+		const newColor = { color: color, name: colorName };
 		setColors(colors => [...colors, newColor]);
-	}
+		setColorName('');
+	};
+
+	const handleSubmit = (color, colorName) => {
+		if (colorName) {
+			const isValid = validateColor(color, colorName);
+			if (isValid === 'hasColor') {
+				setErrorText('You already picked this color');
+				setValidationError(true);
+			} else if (isValid === 'hasName') {
+				setErrorText('Name is already taken');
+				setValidationError(true);
+			} else if (isValid === 'hasBoth') {
+				setErrorText('Name and color is already taken');
+				setValidationError(true);
+			} else {
+				addColor(color, colorName);
+				setValidationError(false);
+				setErrorText('');
+			}
+		} else {
+			setErrorText('Name is required');
+			setValidationError(true);
+		}
+	};
 
 	return (
 		<div className={classes.root}>
@@ -81,14 +133,26 @@ function NewPaletteForm() {
 					</div>
 					<ChromePicker
 						color={currentColor}
-						onChangeComplete={newColor => changeCurrentColor(newColor)}
+						onChangeComplete={newColor => changeCurrentColor(newColor.hex)}
 						disableAlpha
-						width="100%"
+						width='100%'
 					/>
 					<div className={classes.textfield}>
-						<TextField id='filled-basic' label='Color Name' variant='filled' />
+						<TextField
+							id='filled-basic'
+							label='Color Name'
+							variant='filled'
+							helperText={errorText}
+							value={colorName}
+							onChange={e => setColorName(e.target.value)}
+							error={validationError && true}
+						/>
 					</div>
-					<Button variant='contained' color="primary" style={{ backgroundColor: currentColor.hex }} onClick={() => addColor(currentColor.hex)}>
+					<Button
+						variant='contained'
+						color='primary'
+						style={{ backgroundColor: currentColor }}
+						onClick={() => handleSubmit(currentColor, colorName)}>
 						Add color
 					</Button>
 				</div>
@@ -98,7 +162,9 @@ function NewPaletteForm() {
 					[classes.contentShift]: open,
 				})}>
 				<div className={classes.drawerHeader} />
-				{colors.map((color, idx) => <DraggableColorbox key={idx} color={color}/>)}
+				{colors.map((color, idx) => (
+					<DraggableColorbox key={idx} color={color.color} name={color.name} />
+				))}
 			</main>
 		</div>
 	);
