@@ -4,6 +4,7 @@ const styles = {
         height: "25%",
         display: "inline-block",
         backgroundColor: props => props.color,
+        cursor: "pointer"
     }
 }
 
