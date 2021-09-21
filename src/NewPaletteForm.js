@@ -45,11 +45,9 @@ function NewPaletteForm() {
 		});
 		if (doubleColor > 0 && doubleName > 0) {
 			return 'hasBoth';
-		}
-		if (doubleColor > 0) {
+		} else if (doubleColor > 0) {
 			return 'hasColor';
-		}
-		if (doubleName > 0) {
+		} else if (doubleName > 0) {
 			return 'hasName';
 		} else {
 			return 'valid';
