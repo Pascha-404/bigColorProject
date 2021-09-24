@@ -11,8 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import DraggableColorbox from './DraggableColorbox';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import styles from './styles/NewPaletteFormStyles';
 
 function NewPaletteForm() {
@@ -20,9 +20,10 @@ function NewPaletteForm() {
 	const [open, setOpen] = React.useState(false);
 	const [currentColor, changeCurrentColor] = React.useState('#3F51B5');
 	const [colors, setColors] = React.useState([{ color: '#3F51B5', name: 'orca blue' }]);
-	const [validationError, setValidationError] = React.useState(false);
-	const [errorText, setErrorText] = React.useState('');
+	// const [validationError, setValidationError] = React.useState(false);
+	// const [errorText, setErrorText] = React.useState('');
 	const [colorName, setColorName] = React.useState('');
+
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -32,55 +33,78 @@ function NewPaletteForm() {
 		setOpen(false);
 	};
 
-	const validateColor = (color, colorName) => {
-		let doubleColor = 0;
-		let doubleName = 0;
-		colors.forEach(c => {
-			if (c.name.toLowerCase() === colorName.toLowerCase()) {
-				doubleName += 1;
+	React.useEffect(() => {
+		// custom rule will have name 'isColorUnique'
+		ValidatorForm.addValidationRule('isColorUnique', value => {
+			if (value !== 'teal') {
+				return false;
 			}
-			if (c.color === color) {
-				doubleColor += 1;
-			}
+			return true;
 		});
-		if (doubleColor > 0 && doubleName > 0) {
-			return 'hasBoth';
-		} else if (doubleColor > 0) {
-			return 'hasColor';
-		} else if (doubleName > 0) {
-			return 'hasName';
-		} else {
-			return 'valid';
-		}
-	};
-
-	const addColor = (color, colorName) => {
-		const newColor = { color: color, name: colorName };
-		setColors(colors => [...colors, newColor]);
-		setColorName('');
-	};
-
-	const handleSubmit = (color, colorName) => {
-		if (colorName) {
-			const isValid = validateColor(color, colorName);
-			if (isValid === 'hasColor') {
-				setErrorText('You already picked this color');
-				setValidationError(true);
-			} else if (isValid === 'hasName') {
-				setErrorText('Name is already taken');
-				setValidationError(true);
-			} else if (isValid === 'hasBoth') {
-				setErrorText('Name and color is already taken');
-				setValidationError(true);
-			} else {
-				addColor(color, colorName);
-				setValidationError(false);
-				setErrorText('');
+		// custom rule will have name 'isColorUnique'
+		ValidatorForm.addValidationRule('isNameUnique', value => {
+			if (value !== 'red') {
+				return false;
 			}
-		} else {
-			setErrorText('Name is required');
-			setValidationError(true);
-		}
+			return true;
+		});
+	})
+
+	// const validateColor = (color, colorName) => {
+	// 	let doubleColor = 0;
+	// 	let doubleName = 0;
+	// 	colors.forEach(c => {
+	// 		if (c.name.toLowerCase() === colorName.toLowerCase()) {
+	// 			doubleName += 1;
+	// 		}
+	// 		if (c.color === color) {
+	// 			doubleColor += 1;
+	// 		}
+	// 	});
+	// 	if (doubleColor > 0 && doubleName > 0) {
+	// 		return 'hasBoth';
+	// 	} else if (doubleColor > 0) {
+	// 		return 'hasColor';
+	// 	} else if (doubleName > 0) {
+	// 		return 'hasName';
+	// 	} else {
+	// 		return 'valid';
+	// 	}
+	// };
+
+	// const addColor = (color, colorName) => {
+	// 	const newColor = { color: color, name: colorName };
+	// 	setColors(colors => [...colors, newColor]);
+	// 	setColorName('');
+	// };
+
+	// const handleSubmit = (color, colorName) => {
+	// 	if (colorName) {
+	// 		const isValid = validateColor(color, colorName);
+	// 		if (isValid === 'hasColor') {
+	// 			setErrorText('You already picked this color');
+	// 			setValidationError(true);
+	// 		} else if (isValid === 'hasName') {
+	// 			setErrorText('Name is already taken');
+	// 			setValidationError(true);
+	// 		} else if (isValid === 'hasBoth') {
+	// 			setErrorText('Name and color is already taken');
+	// 			setValidationError(true);
+	// 		} else {
+	// 			addColor(color, colorName);
+	// 			setValidationError(false);
+	// 			setErrorText('');
+	// 		}
+	// 	} else {
+	// 		setErrorText('Name is required');
+	// 		setValidationError(true);
+	// 	}
+	// };
+
+	const handleSubmit = () => {};
+
+	const handleChange = (e) => {
+		setColorName(e.target.value)
 	};
 
 	return (
@@ -135,7 +159,7 @@ function NewPaletteForm() {
 						disableAlpha
 						width='100%'
 					/>
-					<div className={classes.textfield}>
+					{/* <div className={classes.textfield}>
 						<TextField
 							id='filled-basic'
 							label='Color Name'
@@ -145,14 +169,30 @@ function NewPaletteForm() {
 							onChange={e => setColorName(e.target.value)}
 							error={validationError && true}
 						/>
-					</div>
-					<Button
-						variant='contained'
-						color='primary'
-						style={{ backgroundColor: currentColor }}
-						onClick={() => handleSubmit(currentColor, colorName)}>
-						Add color
-					</Button>
+					</div> */}
+					<ValidatorForm
+						onSubmit={handleSubmit}
+						onError={errors => console.log(errors)}>
+						<TextValidator
+							label='Color Name'
+							onChange={handleChange}
+							name='colorName'
+							value={colorName}
+							validators={['required', 'isColorUnique', 'isNameUnique']}
+							errorMessages={[
+								'Name is required',
+								'Color is already picked',
+								'Name is already taken',
+							]}
+						/>
+						<Button
+							variant='contained'
+							color='primary'
+							style={{ backgroundColor: currentColor }}
+							type='submit'>
+							Add color
+						</Button>
+					</ValidatorForm>
 				</div>
 			</Drawer>
 			<main
