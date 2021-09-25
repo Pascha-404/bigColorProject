@@ -20,10 +20,18 @@ function NewPaletteForm() {
 	const [open, setOpen] = React.useState(false);
 	const [currentColor, changeCurrentColor] = React.useState('#3F51B5');
 	const [colors, setColors] = React.useState([{ color: '#3F51B5', name: 'orca blue' }]);
-	// const [validationError, setValidationError] = React.useState(false);
-	// const [errorText, setErrorText] = React.useState('');
 	const [colorName, setColorName] = React.useState('');
 
+	React.useEffect(() => {
+		// custom rule will have name 'isColorUnique'
+		ValidatorForm.addValidationRule('isNameUnique', value =>
+			colors.every(color => color.name.toLowerCase() !== value.toLowerCase())
+		);
+		// custom rule will have name 'isColorUnique'
+		ValidatorForm.addValidationRule('isColorUnique', value =>
+			colors.every(color => color.color !== currentColor)
+		);
+	});
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -33,78 +41,22 @@ function NewPaletteForm() {
 		setOpen(false);
 	};
 
-	React.useEffect(() => {
-		// custom rule will have name 'isColorUnique'
-		ValidatorForm.addValidationRule('isColorUnique', value => {
-			if (value !== 'teal') {
-				return false;
-			}
-			return true;
-		});
-		// custom rule will have name 'isColorUnique'
-		ValidatorForm.addValidationRule('isNameUnique', value => {
-			if (value !== 'red') {
-				return false;
-			}
-			return true;
-		});
-	})
+	const addColor = () => {
+		const newColor = { color: currentColor, name: colorName };
+		setColors(colors => [...colors, newColor]);
+		setColorName('');
+	};
 
-	// const validateColor = (color, colorName) => {
-	// 	let doubleColor = 0;
-	// 	let doubleName = 0;
-	// 	colors.forEach(c => {
-	// 		if (c.name.toLowerCase() === colorName.toLowerCase()) {
-	// 			doubleName += 1;
-	// 		}
-	// 		if (c.color === color) {
-	// 			doubleColor += 1;
-	// 		}
-	// 	});
-	// 	if (doubleColor > 0 && doubleName > 0) {
-	// 		return 'hasBoth';
-	// 	} else if (doubleColor > 0) {
-	// 		return 'hasColor';
-	// 	} else if (doubleName > 0) {
-	// 		return 'hasName';
-	// 	} else {
-	// 		return 'valid';
-	// 	}
-	// };
+	const clearPalette = () => {
+		setColors([])
+	}
 
-	// const addColor = (color, colorName) => {
-	// 	const newColor = { color: color, name: colorName };
-	// 	setColors(colors => [...colors, newColor]);
-	// 	setColorName('');
-	// };
+	const handleSubmit = () => {
+		addColor();
+	};
 
-	// const handleSubmit = (color, colorName) => {
-	// 	if (colorName) {
-	// 		const isValid = validateColor(color, colorName);
-	// 		if (isValid === 'hasColor') {
-	// 			setErrorText('You already picked this color');
-	// 			setValidationError(true);
-	// 		} else if (isValid === 'hasName') {
-	// 			setErrorText('Name is already taken');
-	// 			setValidationError(true);
-	// 		} else if (isValid === 'hasBoth') {
-	// 			setErrorText('Name and color is already taken');
-	// 			setValidationError(true);
-	// 		} else {
-	// 			addColor(color, colorName);
-	// 			setValidationError(false);
-	// 			setErrorText('');
-	// 		}
-	// 	} else {
-	// 		setErrorText('Name is required');
-	// 		setValidationError(true);
-	// 	}
-	// };
-
-	const handleSubmit = () => {};
-
-	const handleChange = (e) => {
-		setColorName(e.target.value)
+	const handleChange = e => {
+		setColorName(e.target.value);
 	};
 
 	return (
@@ -146,7 +98,7 @@ function NewPaletteForm() {
 				<div className={classes.drawerMain}>
 					<h2>Design Your Palette</h2>
 					<div className={classes.btnWrap}>
-						<Button variant='contained' color='secondary'>
+						<Button variant='contained' color='secondary' onClick={clearPalette}>
 							clear palette
 						</Button>
 						<Button variant='contained' color='primary'>
@@ -159,20 +111,9 @@ function NewPaletteForm() {
 						disableAlpha
 						width='100%'
 					/>
-					{/* <div className={classes.textfield}>
-						<TextField
-							id='filled-basic'
-							label='Color Name'
-							variant='filled'
-							helperText={errorText}
-							value={colorName}
-							onChange={e => setColorName(e.target.value)}
-							error={validationError && true}
-						/>
-					</div> */}
-					<ValidatorForm
-						onSubmit={handleSubmit}
-						onError={errors => console.log(errors)}>
+
+					<ValidatorForm onSubmit={handleSubmit}>
+						<div className={classes.textfield}>
 						<TextValidator
 							label='Color Name'
 							onChange={handleChange}
@@ -185,6 +126,7 @@ function NewPaletteForm() {
 								'Name is already taken',
 							]}
 						/>
+						</div>
 						<Button
 							variant='contained'
 							color='primary'
