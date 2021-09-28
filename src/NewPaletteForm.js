@@ -14,14 +14,16 @@ import Button from '@material-ui/core/Button';
 import DraggableColorbox from './DraggableColorbox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
 import styles from './styles/NewPaletteFormStyles';
 
-function NewPaletteForm() {
+function NewPaletteForm(props) {
 	const classes = styles();
 	const [open, setOpen] = React.useState(false);
 	const [currentColor, changeCurrentColor] = React.useState('#3F51B5');
 	const [colors, setColors] = React.useState([{ color: '#3F51B5', name: 'orca blue' }]);
 	const [colorName, setColorName] = React.useState('');
+	const [paletteName, setPaletteName] = React.useState('');
 
 	React.useEffect(() => {
 		// custom rule will have name 'isColorUnique'
@@ -49,8 +51,8 @@ function NewPaletteForm() {
 	};
 
 	const clearPalette = () => {
-		setColors([])
-	}
+		setColors([]);
+	};
 
 	const handleSubmit = () => {
 		addColor();
@@ -58,6 +60,16 @@ function NewPaletteForm() {
 
 	const handleChange = e => {
 		setColorName(e.target.value);
+	};
+
+	const savePalette = () => {
+		const newPalette = {
+			paletteName: paletteName,
+			id: paletteName.toLowerCase().replace(/ /g, '-'),
+			emoji: '😵‍💫',
+			colors: colors
+		};
+		props.savePalette(newPalette)
 	};
 
 	return (
@@ -80,11 +92,12 @@ function NewPaletteForm() {
 					<Typography variant='h6' noWrap>
 						Persistent drawer
 					</Typography>
+					<TextField id='filled-basic' label='Filled' variant='filled' value={paletteName} onChange={e => setPaletteName(e.target.value)}/>
 					<div>
-						<Button variant='contained' color='primary'>
+						<Button variant='contained' color='primary' onClick={savePalette}>
 							save palette
 						</Button>
-						<Link to="/">
+						<Link to='/'>
 							<Button variant='contained' color='secondary'>
 								go back
 							</Button>
