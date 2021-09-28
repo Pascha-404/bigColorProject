@@ -13,6 +13,7 @@ import { ChromePicker } from 'react-color';
 import Button from '@material-ui/core/Button';
 import DraggableColorbox from './DraggableColorbox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { Link } from 'react-router-dom';
 import styles from './styles/NewPaletteFormStyles';
 
 function NewPaletteForm() {
@@ -79,6 +80,16 @@ function NewPaletteForm() {
 					<Typography variant='h6' noWrap>
 						Persistent drawer
 					</Typography>
+					<div>
+						<Button variant='contained' color='primary'>
+							save palette
+						</Button>
+						<Link to="/">
+							<Button variant='contained' color='secondary'>
+								go back
+							</Button>
+						</Link>
+					</div>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -114,18 +125,18 @@ function NewPaletteForm() {
 
 					<ValidatorForm onSubmit={handleSubmit}>
 						<div className={classes.textfield}>
-						<TextValidator
-							label='Color Name'
-							onChange={handleChange}
-							name='colorName'
-							value={colorName}
-							validators={['required', 'isColorUnique', 'isNameUnique']}
-							errorMessages={[
-								'Name is required',
-								'Color is already picked',
-								'Name is already taken',
-							]}
-						/>
+							<TextValidator
+								label='Color Name'
+								onChange={handleChange}
+								name='colorName'
+								value={colorName}
+								validators={['required', 'isColorUnique', 'isNameUnique']}
+								errorMessages={[
+									'Name is required',
+									'Color is already picked',
+									'Name is already taken',
+								]}
+							/>
 						</div>
 						<Button
 							variant='contained'
