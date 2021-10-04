@@ -72,6 +72,8 @@ const styles = makeStyles(theme => ({
 		}),
 		marginLeft: -drawerWidth,
 		height: "calc(100vh - 64px)",
+		paddingLeft: "0",
+		paddingRight: "0"
 	},
 	contentShift: {
 		transition: theme.transitions.create('margin', {
