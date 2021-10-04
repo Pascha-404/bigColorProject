@@ -11,7 +11,7 @@ export class PalettesList extends Component {
 	}
 
 	render() {
-		const { classes } = this.props;
+		const { classes, palettes } = this.props;
 
 		return (
 			<div className={classes.root}>
@@ -21,7 +21,7 @@ export class PalettesList extends Component {
 						<Link to='/palette/new'>Create Palette</Link>
 					</nav>
 					<div className={classes.palettes}>
-						{this.props.palettes.map(palette => (
+						{palettes.map(palette => (
 							<MiniPalette
 								{...palette}
 								key={palette.id}
