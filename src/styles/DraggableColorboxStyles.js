@@ -10,6 +10,10 @@ const styles = {
 		position: 'relative',
 		margin: '0 auto',
 		marginBottom: '-3px',
+		'&:hover svg': {
+			color: "white",
+			transform: 'scale(1.5)',
+		},
 	},
 	content: {
 		padding: '10px',
@@ -19,17 +23,16 @@ const styles = {
 		bottom: '0',
 		letterSpacing: '1px',
 		fontSize: '12px',
-		color: 'black',
 		textTransform: 'uppercase',
+		display: "flex",
+		justifyContent: "space-between",
+		color: "rgba(0,0,0,0.5)"
 	},
 	name: {
 		color: props => (chroma(props.color).luminance() <= 0.6 ? 'white' : 'black'),
 	},
 	deleteBtn: {
-		position: 'absolute',
-		bottom: '0',
-		right: '0',
-		border: 'none',
+		transition: 'all 500ms ease',
 	},
 };
 
