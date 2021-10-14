@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 import DraggableColorList from './DraggableColorList';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
-import {arrayMove} from "react-sortable-hoc"
+import { arrayMoveImmutable as arrayMove } from 'array-move';
 import styles from './styles/NewPaletteFormStyles';
 
 function NewPaletteForm(props) {
@@ -36,7 +36,9 @@ function NewPaletteForm(props) {
 		);
 		// custom rule will have name 'isPaletteNameUnique'
 		ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
-			props.palettes.every(palette => palette.paletteName.toLowerCase() !== paletteName.toLowerCase())
+			props.palettes.every(
+				palette => palette.paletteName.toLowerCase() !== paletteName.toLowerCase()
+			)
 		);
 	});
 
@@ -67,8 +69,8 @@ function NewPaletteForm(props) {
 	};
 
 	const handleChangeName = e => {
-		setPaletteName(e.target.value)
-	}
+		setPaletteName(e.target.value);
+	};
 
 	const savePalette = () => {
 		const newPalette = {
@@ -78,20 +80,17 @@ function NewPaletteForm(props) {
 			colors: colors,
 		};
 		props.savePalette(newPalette);
-		props.history.push("/")
+		props.history.push('/');
 	};
 
-	const deleteColor = (e, colorToDelete) => {
-		console.log(e);
-		setColors(curColors => curColors.filter(color => color.name !== colorToDelete))}
-	
+	const deleteColor = colorToDelete => {
+		setColors(curColors => curColors.filter(color => color.name !== colorToDelete));
+	};
 
 	const onSortEnd = ({ oldIndex, newIndex }) => {
-		setColors(({ colors }) => ({
-			colors: arrayMove(colors, oldIndex, newIndex),
-		}));
-	}
-	
+		setColors(arrayMove(colors, oldIndex, newIndex));
+	};
+
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
@@ -113,24 +112,27 @@ function NewPaletteForm(props) {
 						Persistent drawer
 					</Typography>
 
-						<ValidatorForm onSubmit={savePalette}>
-							<TextValidator
-								label='Palette Name'
-								value={paletteName}
+					<ValidatorForm onSubmit={savePalette}>
+						<TextValidator
+							label='Palette Name'
+							value={paletteName}
 							onChange={handleChangeName}
-							name="paletteName"
-							validators={["required", "isPaletteNameUnique"]}
-							errorMessages={["Palette Name is required", "Palette Name is already taken"]}
-							/>
-							<Button variant='contained' color='primary' type="submit">
-								save palette
-							</Button>
-						</ValidatorForm>
-						<Link to='/'>
-							<Button variant='contained' color='secondary'>
-								go back
-							</Button>
-						</Link>
+							name='paletteName'
+							validators={['required', 'isPaletteNameUnique']}
+							errorMessages={[
+								'Palette Name is required',
+								'Palette Name is already taken',
+							]}
+						/>
+						<Button variant='contained' color='primary' type='submit'>
+							save palette
+						</Button>
+					</ValidatorForm>
+					<Link to='/'>
+						<Button variant='contained' color='secondary'>
+							go back
+						</Button>
+					</Link>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -194,7 +196,13 @@ function NewPaletteForm(props) {
 					[classes.contentShift]: open,
 				})}>
 				<div className={classes.drawerHeader} />
-				<DraggableColorList colors={colors} deleteColor={deleteColor} onSortEnd={onSortEnd} />
+				<DraggableColorList
+					colors={colors}
+					deleteColor={deleteColor}
+					onSortEnd={onSortEnd}
+					axis='xy'
+					distance={20}
+				/>
 			</main>
 		</div>
 	);
