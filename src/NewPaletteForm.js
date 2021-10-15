@@ -24,6 +24,7 @@ function NewPaletteForm(props) {
 	const [colors, setColors] = React.useState([{ color: '#3F51B5', name: 'orca blue' }]);
 	const [colorName, setColorName] = React.useState('');
 	const [paletteName, setPaletteName] = React.useState('');
+	const [paletteFull, setPaletteFull] = React.useState(false);
 
 	React.useEffect(() => {
 		// custom rule will have name 'isNameUnique'
@@ -41,6 +42,15 @@ function NewPaletteForm(props) {
 			)
 		);
 	});
+
+	// checks if Palette is full and sets state for disabling random/add btn
+	React.useEffect(() => {
+		if (colors.length >= 20) {
+			setPaletteFull(true);
+		} else {
+			setPaletteFull(false);
+		}
+	},[colors.length]);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -89,6 +99,24 @@ function NewPaletteForm(props) {
 
 	const onSortEnd = ({ oldIndex, newIndex }) => {
 		setColors(arrayMove(colors, oldIndex, newIndex));
+	};
+
+	const randomArray = array => {
+		return array[Math.floor(Math.random() * array.length)];
+	};
+
+	const addRandomColor = () => {
+		let randomColor;
+		while (!randomColor) {
+			const palette = randomArray(props.palettes);
+			const pickedColor = randomArray(palette.colors);
+			if (
+				colors.every(color => color.name.toLowerCase() !== pickedColor.name.toLowerCase())
+			) {
+				randomColor = pickedColor;
+			}
+		}
+		setColors(cur => [...cur, randomColor]);
 	};
 
 	return (
@@ -155,7 +183,11 @@ function NewPaletteForm(props) {
 						<Button variant='contained' color='secondary' onClick={clearPalette}>
 							clear palette
 						</Button>
-						<Button variant='contained' color='primary'>
+						<Button
+							variant='contained'
+							color='primary'
+							onClick={addRandomColor}
+							disabled={paletteFull ? true : false}>
 							random color
 						</Button>
 					</div>
@@ -185,7 +217,8 @@ function NewPaletteForm(props) {
 							variant='contained'
 							color='primary'
 							style={{ backgroundColor: currentColor }}
-							type='submit'>
+							type='submit'
+							disabled={paletteFull ? true : false}>
 							Add color
 						</Button>
 					</ValidatorForm>
