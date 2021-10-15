@@ -6,26 +6,6 @@ const styles = makeStyles(theme => ({
 	root: {
 		display: 'flex',
 	},
-	appBar: {
-		transition: theme.transitions.create(['margin', 'width'], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-		}),
-	},
-	appBarShift: {
-		width: `calc(100% - ${drawerWidth}px)`,
-		marginLeft: drawerWidth,
-		transition: theme.transitions.create(['margin', 'width'], {
-			easing: theme.transitions.easing.easeOut,
-			duration: theme.transitions.duration.enteringScreen,
-		}),
-	},
-	menuButton: {
-		marginRight: theme.spacing(2),
-	},
-	hide: {
-		display: 'none',
-	},
 	drawer: {
 		width: drawerWidth,
 		flexShrink: 0,
@@ -42,26 +22,25 @@ const styles = makeStyles(theme => ({
 		justifyContent: 'flex-end',
 	},
 	drawerMain: {
-		height: "100%",
-		width: "90%",
+		height: '100%',
+		width: '90%',
 		display: 'flex',
 		flexDirection: 'column',
-		alignItems: "center",
-		justifyContent: "center",
-		margin: "0 auto",
+		alignItems: 'center',
+		justifyContent: 'center',
+		margin: '0 auto',
 	},
 	btnWrap: {
-		display: "flex",
-		width: "100%",
-		marginBottom: "1rem",
-		"& span": {
-			fontSize: "0.8rem",
-			
+		display: 'flex',
+		width: '100%',
+		marginBottom: '1rem',
+		'& span': {
+			fontSize: '0.8rem',
 		},
 	},
 	textfield: {
-		marginTop: "1rem",
-		marginBottom: "1rem",
+		marginTop: '1rem',
+		marginBottom: '1rem',
 	},
 	content: {
 		flexGrow: 1,
@@ -71,9 +50,9 @@ const styles = makeStyles(theme => ({
 			duration: theme.transitions.duration.leavingScreen,
 		}),
 		marginLeft: -drawerWidth,
-		height: "calc(100vh - 64px)",
-		paddingLeft: "0",
-		paddingRight: "0"
+		height: 'calc(100vh - 64px)',
+		paddingLeft: '0',
+		paddingRight: '0',
 	},
 	contentShift: {
 		transition: theme.transitions.create('margin', {
