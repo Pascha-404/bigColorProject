@@ -38,10 +38,7 @@ const styles = makeStyles(theme => ({
 			fontSize: '0.8rem',
 		},
 	},
-	textfield: {
-		marginTop: '1rem',
-		marginBottom: '1rem',
-	},
+
 	content: {
 		flexGrow: 1,
 		padding: theme.spacing(3),
