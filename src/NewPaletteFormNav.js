@@ -11,8 +11,27 @@ import { Link } from 'react-router-dom';
 import styles from './styles/NewPaletteFormNavStyles';
 
 function NewPaletteFormNav(props) {
-	const { open, paletteName, handleDrawerOpen, savePalette, handleChangeName } = props;
+	const [paletteName, setPaletteName] = React.useState('');
+	const { open, handleDrawerOpen, savePalette } = props;
 	const classes = styles();
+
+	React.useEffect(() => {
+		// custom rule will have name 'isPaletteNameUnique'
+		ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
+			props.palettes.every(
+				palette => palette.paletteName.toLowerCase() !== paletteName.toLowerCase()
+			)
+		);
+	});
+
+	const handleSubmit = () => {
+		savePalette(paletteName);
+	};
+
+	const handleChange = e => {
+		setPaletteName(e.target.value);
+	};
+
 	return (
 		<AppBar
 			position='fixed'
@@ -32,11 +51,11 @@ function NewPaletteFormNav(props) {
 					Persistent drawer
 				</Typography>
 
-				<ValidatorForm onSubmit={savePalette}>
+				<ValidatorForm onSubmit={handleSubmit}>
 					<TextValidator
 						label='Palette Name'
 						value={paletteName}
-						onChange={handleChangeName}
+						onChange={handleChange}
 						name='paletteName'
 						validators={['required', 'isPaletteNameUnique']}
 						errorMessages={['Palette Name is required', 'Palette Name is already taken']}

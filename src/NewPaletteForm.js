@@ -5,39 +5,18 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { ChromePicker } from 'react-color';
 import Button from '@material-ui/core/Button';
 import DraggableColorList from './DraggableColorList';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { arrayMoveImmutable as arrayMove } from 'array-move';
 import NewPaletteFormNav from './NewPaletteFormNav';
+import ColorPickerForm from './ColorPickerForm';
 import styles from './styles/NewPaletteFormStyles';
 
 function NewPaletteForm(props) {
 	const classes = styles();
 	const [open, setOpen] = React.useState(false);
-	const [currentColor, changeCurrentColor] = React.useState('#3F51B5');
 	const [colors, setColors] = React.useState([{ color: '#3F51B5', name: 'orca blue' }]);
-	const [colorName, setColorName] = React.useState('');
-	const [paletteName, setPaletteName] = React.useState('');
-	const [paletteFull, setPaletteFull] = React.useState(false);
-
-	React.useEffect(() => {
-		// custom rule will have name 'isNameUnique'
-		ValidatorForm.addValidationRule('isNameUnique', value =>
-			colors.every(color => color.name.toLowerCase() !== value.toLowerCase())
-		);
-		// custom rule will have name 'isColorUnique'
-		ValidatorForm.addValidationRule('isColorUnique', value =>
-			colors.every(color => color.color !== currentColor)
-		);
-		// custom rule will have name 'isPaletteNameUnique'
-		ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
-			props.palettes.every(
-				palette => palette.paletteName.toLowerCase() !== paletteName.toLowerCase()
-			)
-		);
-	});
+	const [isPaletteFull, setPaletteFull] = React.useState(false);
 
 	// checks if Palette is full and sets state for disabling random/add btn
 	React.useEffect(() => {
@@ -55,29 +34,16 @@ function NewPaletteForm(props) {
 		setOpen(false);
 	};
 
-	const addColor = () => {
+	const addColor = (currentColor, colorName) => {
 		const newColor = { color: currentColor, name: colorName };
 		setColors(colors => [...colors, newColor]);
-		setColorName('');
 	};
 
 	const clearPalette = () => {
 		setColors([]);
 	};
 
-	const handleSubmitColor = () => {
-		addColor();
-	};
-
-	const handleChangeColor = e => {
-		setColorName(e.target.value);
-	};
-
-	const handleChangeName = e => {
-		setPaletteName(e.target.value);
-	};
-
-	const savePalette = () => {
+	const savePalette = paletteName => {
 		const newPalette = {
 			paletteName: paletteName,
 			id: paletteName.toLowerCase().replace(/ /g, '-'),
@@ -121,8 +87,7 @@ function NewPaletteForm(props) {
 				open={open}
 				handleDrawerOpen={handleDrawerOpen}
 				savePalette={savePalette}
-				paletteName={paletteName}
-				handleChangeName={handleChangeName}
+				palettes={props.palettes}
 			/>
 			<Drawer
 				className={classes.drawer}
@@ -148,41 +113,15 @@ function NewPaletteForm(props) {
 							variant='contained'
 							color='primary'
 							onClick={addRandomColor}
-							disabled={paletteFull ? true : false}>
+							disabled={isPaletteFull ? true : false}>
 							random color
 						</Button>
 					</div>
-					<ChromePicker
-						color={currentColor}
-						onChange={newColor => changeCurrentColor(newColor.hex)}
-						disableAlpha
-						width='100%'
+					<ColorPickerForm
+						isPaletteFull={isPaletteFull}
+						colors={colors}
+						addColor={addColor}
 					/>
-
-					<ValidatorForm onSubmit={handleSubmitColor}>
-						<div className={classes.textfield}>
-							<TextValidator
-								label='Color Name'
-								onChange={handleChangeColor}
-								name='colorName'
-								value={colorName}
-								validators={['required', 'isColorUnique', 'isNameUnique']}
-								errorMessages={[
-									'Name is required',
-									'Color is already picked',
-									'Name is already taken',
-								]}
-							/>
-						</div>
-						<Button
-							variant='contained'
-							color='primary'
-							style={{ backgroundColor: currentColor }}
-							type='submit'
-							disabled={paletteFull ? true : false}>
-							Add color
-						</Button>
-					</ValidatorForm>
 				</div>
 			</Drawer>
 			<main
