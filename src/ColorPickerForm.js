@@ -44,30 +44,32 @@ class ColorPickerForm extends Component {
 		const { currentColor, colorName } = this.state;
 		const { classes, isPaletteFull } = this.props;
 		return (
-			<div className={classes.colorPicker}>
+			<div className={classes.colorPickerForm}>
 				<ChromePicker
 					color={currentColor}
 					onChange={this.handleColorChange}
 					disableAlpha
-					width='100%'
+					className={classes.colorPicker}
 				/>
 
 				<ValidatorForm onSubmit={this.handleSubmit}>
-					<div className={classes.textfield}>
-						<TextValidator
-							label='Color Name'
-							onChange={this.handleChange}
-							name='colorName'
-							value={colorName}
-							validators={['required', 'isColorUnique', 'isNameUnique']}
-							errorMessages={[
-								'Name is required',
-								'Color is already picked',
-								'Name is already taken',
-							]}
-						/>
-					</div>
+					<TextValidator
+						variant='filled'
+						label='Color Name'
+						onChange={this.handleChange}
+						name='colorName'
+						value={colorName}
+						validators={['required', 'isColorUnique', 'isNameUnique']}
+						errorMessages={[
+							'Name is required',
+							'Color is already picked',
+							'Name is already taken',
+						]}
+						className={classes.textfield}
+					/>
+
 					<Button
+						className={classes.btn}
 						variant='contained'
 						color='primary'
 						style={{ backgroundColor: currentColor }}
