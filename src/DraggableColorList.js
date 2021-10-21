@@ -1,18 +1,11 @@
 import React from 'react'
 import DraggableColorbox from './DraggableColorbox';
 import { SortableContainer } from "react-sortable-hoc"
-import { withStyles } from '@material-ui/styles';
 
-const styles = {
-    list: {
-        width: "100%",
-        height: "100%"
-    }
-}
 
 const DraggableColorList = SortableContainer(({ colors, deleteColor, classes }) => {
     return (
-        <div className={classes.list}>
+        <div style={{height:"100%"}}>
             {colors.map((color, idx) => (
                 <DraggableColorbox
                     index={idx}
@@ -26,4 +19,4 @@ const DraggableColorList = SortableContainer(({ colors, deleteColor, classes }) 
     );
 });
 
-export default withStyles(styles)(DraggableColorList);
+export default DraggableColorList;
