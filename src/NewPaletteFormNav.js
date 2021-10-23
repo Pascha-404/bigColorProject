@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import FormDialog from './FormDialog';
 import { Link } from 'react-router-dom';
 import styles from './styles/NewPaletteFormNavStyles';
 
@@ -63,6 +64,7 @@ function NewPaletteFormNav(props) {
 					<Button variant='contained' color='primary' type='submit'>
 						save palette
 					</Button>
+					<FormDialog />
 				</ValidatorForm>
 				<Link to='/'>
 					<Button variant='contained' color='secondary'>
