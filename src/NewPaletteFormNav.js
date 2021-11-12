@@ -6,31 +6,24 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import FormDialog from './FormDialog';
 import { Link } from 'react-router-dom';
 import styles from './styles/NewPaletteFormNavStyles';
 
 function NewPaletteFormNav(props) {
-	const [paletteName, setPaletteName] = React.useState('');
+	const [showDialogForm, setDialogForm] = React.useState(false);
 	const { open, handleDrawerOpen, savePalette } = props;
 	const classes = styles();
 
-	React.useEffect(() => {
-		// custom rule will have name 'isPaletteNameUnique'
-		ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
-			props.palettes.every(
-				palette => palette.paletteName.toLowerCase() !== paletteName.toLowerCase()
-			)
-		);
-	});
-
-	const handleSubmit = () => {
+	const handleSubmit = (paletteName) => {
 		savePalette(paletteName);
 	};
 
-	const handleChange = e => {
-		setPaletteName(e.target.value);
+	const showForm = () => {
+		setDialogForm(true);
+	};
+	const hideForm = () => {
+		setDialogForm(false);
 	};
 
 	return (
@@ -52,20 +45,13 @@ function NewPaletteFormNav(props) {
 					Persistent drawer
 				</Typography>
 
-				<ValidatorForm onSubmit={handleSubmit}>
-					<TextValidator
-						label='Palette Name'
-						value={paletteName}
-						onChange={handleChange}
-						name='paletteName'
-						validators={['required', 'isPaletteNameUnique']}
-						errorMessages={['Palette Name is required', 'Palette Name is already taken']}
-					/>
-					<Button variant='contained' color='primary' type='submit'>
+				
+					<Button variant='contained' color='primary' onClick={showForm}>
 						save palette
-					</Button>
-					<FormDialog />
-				</ValidatorForm>
+				</Button>
+				
+				{showDialogForm && <FormDialog hideForm={hideForm} handleSubmit={handleSubmit} palettes={props.palettes}/>}
+
 				<Link to='/'>
 					<Button variant='contained' color='secondary'>
 						go back
