@@ -25,7 +25,8 @@ const styles = makeStyles(theme => ({
 		}),
 	},
 	menuButton: {
-		marginRight: theme.spacing(2),
+		marginRight: "1.3rem",
+		marginLeft: "0.7rem"
 	},
 	hide: {
 		display: 'none',
@@ -38,7 +39,6 @@ const styles = makeStyles(theme => ({
 	},
 	button: {
 		margin: '0 0.5rem',
-		
 	},
 }));
 
