@@ -15,10 +15,6 @@ function NewPaletteFormNav(props) {
 	const { open, handleDrawerOpen, savePalette } = props;
 	const classes = styles();
 
-	const handleSubmit = (paletteName) => {
-		savePalette(paletteName);
-	};
-
 	const showForm = () => {
 		setDialogForm(true);
 	};
@@ -50,7 +46,7 @@ function NewPaletteFormNav(props) {
 						save palette
 				</Button>
 				
-				{showDialogForm && <FormDialog hideForm={hideForm} handleSubmit={handleSubmit} palettes={props.palettes}/>}
+				{showDialogForm && <FormDialog hideForm={hideForm} savePalette={savePalette} palettes={props.palettes}/>}
 
 				<Link to='/'>
 					<Button variant='contained' color='secondary'>
