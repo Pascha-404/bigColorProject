@@ -43,11 +43,11 @@ function NewPaletteForm(props) {
 		setColors([]);
 	};
 
-	const savePalette = paletteName => {
+	const savePalette = (paletteName, emoji) => {
 		const newPalette = {
 			paletteName: paletteName,
 			id: paletteName.toLowerCase().replace(/ /g, '-'),
-			emoji: '😵‍💫',
+			emoji: emoji,
 			colors: colors,
 		};
 		props.savePalette(newPalette);
