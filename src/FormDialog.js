@@ -51,8 +51,11 @@ class FormDialog extends Component {
 
 		return (
 			<div>
-				<Dialog open={dialogState === 'form'} onClose={this.handleClose}>
-					<DialogTitle>Choose a Palette Name</DialogTitle>
+				<Dialog
+					open={dialogState === 'form'}
+					onClose={this.handleClose}
+					aria-labelledby='form-dialog-title'>
+					<DialogTitle id='form-dialog-title'>Choose a Palette Name</DialogTitle>
 					<ValidatorForm onSubmit={this.showEmojiPicker}>
 						<DialogContent>
 							<DialogContentText>
@@ -76,15 +79,18 @@ class FormDialog extends Component {
 						</DialogContent>
 						<DialogActions>
 							<Button onClick={this.handleClose}>Cancel</Button>
-							<Button type="submit">Save Palette</Button>
+							<Button type='submit'>Save Palette</Button>
 						</DialogActions>
 					</ValidatorForm>
 				</Dialog>
 
-				<Dialog open={dialogState === 'emoji'} onClose={this.handleClose}>
-					<DialogTitle>Choose a Emoji To Save</DialogTitle>
+				<Dialog
+					open={dialogState === 'emoji'}
+					onClose={this.handleClose}
+					aria-labelledby='form-dialog-title'>
+					<DialogTitle id='form-dialog-title'>Choose a Emoji To Save</DialogTitle>
 					<DialogContent>
-						<Picker set='apple' title="Emoji Picker"onSelect={this.savePalette} />
+						<Picker set='apple' title='Emoji Picker' onSelect={this.savePalette} />
 					</DialogContent>
 				</Dialog>
 			</div>
