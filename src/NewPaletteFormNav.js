@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import FormDialog from './FormDialog';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { Link } from 'react-router-dom';
 import styles from './styles/NewPaletteFormNavStyles';
 
@@ -23,38 +24,50 @@ function NewPaletteFormNav(props) {
 	};
 
 	return (
-		<AppBar
-			position='fixed'
-			className={clsx(classes.appBar, {
-				[classes.appBarShift]: open,
-			})}>
-			<Toolbar>
-				<IconButton
-					color='inherit'
-					aria-label='open drawer'
-					onClick={handleDrawerOpen}
-					edge='start'
-					className={clsx(classes.menuButton, open && classes.hide)}>
-					<MenuIcon />
-				</IconButton>
-				<Typography variant='h6' noWrap>
-					Persistent drawer
-				</Typography>
+		<div className={classes.root}>
+			<CssBaseline />
+			<AppBar
+				color="default"
+				position='fixed'
+				className={clsx(classes.appBar, {
+					[classes.appBarShift]: open,
+				})}>
+				<Toolbar>
+					<IconButton
+						color='inherit'
+						aria-label='open drawer'
+						onClick={handleDrawerOpen}
+						edge='start'
+						className={clsx(classes.menuButton, open && classes.hide)}>
+						<MenuIcon />
+					</IconButton>
 
-				
-					<Button variant='contained' color='primary' onClick={showForm}>
-						save palette
-				</Button>
-				
-				{showDialogForm && <FormDialog hideForm={hideForm} savePalette={savePalette} palettes={props.palettes}/>}
+					<Typography variant='h6' noWrap>
+						Create a Palette
+					</Typography>
+				</Toolbar>
 
-				<Link to='/'>
-					<Button variant='contained' color='secondary'>
-						go back
+				<div className={classes.navBtn}>
+					<Link to='/'>
+						<Button className={classes.button} variant='contained' color='secondary'>
+							go back
+						</Button>
+					</Link>
+
+					<Button className={classes.button} variant='contained' color='primary' onClick={showForm}>
+						save
 					</Button>
-				</Link>
-			</Toolbar>
-		</AppBar>
+				</div>
+			</AppBar>
+
+			{showDialogForm && (
+				<FormDialog
+					hideForm={hideForm}
+					savePalette={savePalette}
+					palettes={props.palettes}
+				/>
+			)}
+		</div>
 	);
 }
 
