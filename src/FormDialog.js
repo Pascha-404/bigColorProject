@@ -6,14 +6,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
 
 class FormDialog extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { open: true, paletteName: '' };
+		this.state = { dialogState: "form", paletteName: '' };
 		this.handleClose = this.handleClose.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
+		this.showEmojiPicker = this.showEmojiPicker.bind(this);
+		this.savePalette = this.savePalette.bind(this);
+
 	}
 
 	componentDidMount() {
@@ -34,18 +38,22 @@ class FormDialog extends Component {
 		this.setState({ [evt.target.name]: evt.target.value });
 	}
 
-	handleSubmit(evt) {
-		this.props.handleSubmit(this.state.paletteName);
+	showEmojiPicker(evt) {
+		this.setState({dialogState: "emoji"})
+	}
+
+	savePalette(emojiObj) {
+		this.props.savePalette(this.state.paletteName, emojiObj.native)
 	}
 
 	render() {
-		const { open, paletteName } = this.state;
+		const { dialogState, paletteName } = this.state;
 
 		return (
 			<div>
-				<Dialog open={open} onClose={this.handleClose}>
+				<Dialog open={dialogState === 'form'} onClose={this.handleClose}>
 					<DialogTitle>Choose a Palette Name</DialogTitle>
-					<ValidatorForm onSubmit={this.handleSubmit}>
+					<ValidatorForm onSubmit={this.showEmojiPicker}>
 						<DialogContent>
 							<DialogContentText>
 								Enter a name for your new palette. It must be unique!
@@ -68,9 +76,16 @@ class FormDialog extends Component {
 						</DialogContent>
 						<DialogActions>
 							<Button onClick={this.handleClose}>Cancel</Button>
-							<Button type='submit'>Save Palette</Button>
+							<Button type="submit">Save Palette</Button>
 						</DialogActions>
 					</ValidatorForm>
+				</Dialog>
+
+				<Dialog open={dialogState === 'emoji'} onClose={this.handleClose}>
+					<DialogTitle>Choose a Emoji To Save</DialogTitle>
+					<DialogContent>
+						<Picker set='apple' title="Emoji Picker"onSelect={this.savePalette} />
+					</DialogContent>
 				</Dialog>
 			</div>
 		);
