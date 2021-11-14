@@ -10,8 +10,13 @@ import NewPaletteForm from './NewPaletteForm';
 class App extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { palettes: seedPalettes };
+		const savedPalettes = JSON.parse(localStorage.getItem('colorPalettes'));
+		this.state = { palettes: savedPalettes || seedPalettes };
 		this.savePalette = this.savePalette.bind(this);
+	}
+
+	syncLocalStorage() {
+		localStorage.setItem('colorPalettes', JSON.stringify(this.state.palettes));
 	}
 
 	findPalette(id) {
@@ -19,7 +24,10 @@ class App extends Component {
 	}
 
 	savePalette(newPalette) {
-		this.setState(state => ({ palettes: [...state.palettes, newPalette] }));
+		this.setState(
+			curState => ({ palettes: [...curState.palettes, newPalette] }),
+			this.syncLocalStorage
+		);
 	}
 
 	render() {
@@ -32,12 +40,16 @@ class App extends Component {
 					render={routeProps => (
 						<PalettesList palettes={palettes} {...routeProps} />
 					)}></Route>
-				
+
 				<Route
 					exact
 					path='/palette/new'
 					render={routeProps => (
-						<NewPaletteForm {...routeProps} savePalette={this.savePalette} palettes={palettes}/>
+						<NewPaletteForm
+							{...routeProps}
+							savePalette={this.savePalette}
+							palettes={palettes}
+						/>
 					)}></Route>
 				<Route
 					exact
@@ -45,7 +57,7 @@ class App extends Component {
 					render={routeProps => (
 						<Palette {...generatePalette(this.findPalette(routeProps.match.params.id))} />
 					)}></Route>
-				
+
 				<Route
 					exact
 					path='/palette/:paletteId/:colorId'
