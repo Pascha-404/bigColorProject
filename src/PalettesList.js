@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import styles from "./styles/PalettesListStyles"
+import styles from './styles/PalettesListStyles';
 
 import MiniPalette from './MiniPalette';
 
 export class PalettesList extends Component {
-	handleGoTo(id) {
+	constructor(props) {
+		super(props);
+		this.goToPalette = this.goToPalette.bind(this);
+	}
+	goToPalette(id) {
 		this.props.history.push(`/palette/${id}`);
 	}
 
@@ -25,7 +29,8 @@ export class PalettesList extends Component {
 							<MiniPalette
 								{...palette}
 								key={palette.id}
-								handleGoTo={() => this.handleGoTo(palette.id)}
+								goToPalette={this.goToPalette}
+								deletePalette={this.props.deletePalette}
 							/>
 						))}
 					</div>
