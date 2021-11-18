@@ -1,26 +1,49 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
 import styles from "./styles/MiniPaletteStyles"
 
-function MiniPalette(props) {
-	const { classes, emoji, colors, paletteName, handleGoTo} = props;
-	const miniBoxes = colors.map(color => {
+class MiniPalette extends Component {
+	constructor(props) {
+		super(props);
+		this.handleGoTo = this.handleGoTo.bind(this)
+		this.handleDelete = this.handleDelete.bind(this)
+	}
+
+	handleGoTo() {
+		this.props.goToPalette(this.props.id)
+	}
+
+	handleDelete(evt) {
+		evt.stopPropagation()
+		this.props.deletePalette(this.props.id)
+	}
+
+
+	render() {
+		const { classes, emoji, colors, paletteName} = this.props;
+
+		const miniBoxes = colors.map(color => {
+			return (
+				<div
+					className={classes.miniColorBoxes}
+					key={color.name}
+					style={{ backgroundColor: color.color }}></div>
+			);
+		});
 		return (
-			<div
-				className={classes.miniColorBoxes}
-				key={color.name}
-				style={{ backgroundColor: color.color }}></div>
+			<div className={classes.root} onClick={this.handleGoTo}>
+				<div className={classes.delete}>
+					<DeleteIcon className={classes.deleteBtn} onClick={this.handleDelete} />
+				</div>
+				<div className={classes.colors}>{miniBoxes}</div>
+				<h5 className={classes.title}>
+					{paletteName}
+					<span className={classes.emoji}>{emoji}</span>
+				</h5>
+			</div>
 		);
-	});
-	return (
-		<div className={classes.root} onClick={handleGoTo}>  
-			<div className={classes.colors}>{miniBoxes}</div>
-			<h5 className={classes.title}>
-				{paletteName}
-				<span className={classes.emoji}>{emoji}</span>
-			</h5>
-		</div>
-	);
+	}
 }
 
 export default withStyles(styles)(MiniPalette);
