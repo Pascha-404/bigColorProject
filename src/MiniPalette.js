@@ -33,10 +33,10 @@ class MiniPalette extends Component {
 		});
 		return (
 			<div className={classes.root} onClick={this.handleGoTo}>
-				<div className={classes.delete}>
 					<DeleteIcon className={classes.deleteBtn} onClick={this.handleDelete} />
-				</div>
+
 				<div className={classes.colors}>{miniBoxes}</div>
+				
 				<h5 className={classes.title}>
 					{paletteName}
 					<span className={classes.emoji}>{emoji}</span>
