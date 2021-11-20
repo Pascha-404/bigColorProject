@@ -5,9 +5,13 @@ const styles = {
 		display: 'inline-block',
 		borderRadius: '5px',
 		padding: '0.5rem',
+		position: 'relative',
 		'&:hover': {
 			cursor: 'pointer',
 		},
+		'&:hover svg': {
+			opacity: '1',
+		}
 	},
 	colors: {
 		backgroundColor: 'grey',
@@ -36,6 +40,18 @@ const styles = {
 	emoji: {
 		fontSize: '1.5rem',
 		marginLeft: '0.5rem',
+	},
+	deleteBtn: {
+		position: 'absolute',
+		top: '0',
+		right: '0',
+		zIndex: '5',
+		backgroundColor: '#eb3d30',
+		padding: '0.5rem',
+		borderRadius: '3px',
+		color: 'white',
+		opacity: '0',
+		transition: 'opacity 0.3s ease-in'
 	},
 };
 
