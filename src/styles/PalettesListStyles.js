@@ -1,3 +1,5 @@
+import sizes from '../sizes';
+
 const styles = {
 	root: {
 		backgroundColor: 'blue',
@@ -23,8 +25,16 @@ const styles = {
 		paddingBottom: '1rem',
 		'& span': {
 			fontSize: '1.5rem',
+			[sizes.down('xs')]: {
+				fontSize: '1.1rem',
+			},
 		},
-		'& a': { color: 'white' },
+		'& a': {
+			color: 'white',
+			[sizes.down('xs')]: {
+				fontSize: '0.8rem',
+			},
+		},
 	},
 	palettes: {
 		width: '100%',
@@ -32,6 +42,13 @@ const styles = {
 		display: 'grid',
 		gridTemplateColumns: 'repeat(3, 30%)',
 		gridGap: '5%',
+		[sizes.down('md')]: {
+			gridTemplateColumns: 'repeat(2, 50%)',
+		},
+		[sizes.down('sm')]: {
+			gridTemplateColumns: 'repeat(1, 100%)',
+			gridGap: '2%',
+		},
 	},
 };
 
