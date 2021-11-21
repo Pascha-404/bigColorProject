@@ -105,14 +105,16 @@ function NewPaletteForm(props) {
 				<div className={classes.drawerMain}>
 					<h2>Design Your Palette</h2>
 					<div className={classes.btnWrap}>
-						<Button variant='contained' color='secondary' onClick={clearPalette}>
+						<Button variant='contained' color='secondary' onClick={clearPalette}
+						className={classes.button}>
 							clear palette
 						</Button>
 						<Button
 							variant='contained'
 							color='primary'
 							onClick={addRandomColor}
-							disabled={isPaletteFull ? true : false}>
+							disabled={isPaletteFull ? true : false}
+							className={classes.button}>
 							random color
 						</Button>
 					</div>
