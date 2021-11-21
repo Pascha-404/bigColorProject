@@ -1,3 +1,5 @@
+import sizes from '../sizes';
+
 const styles = {
 	root: {
 		height: '100vh',
@@ -17,6 +19,18 @@ const styles = {
 		backgroundColor: '#000',
 		'& a': {
 			textDecoration: 'none',
+		},
+		[sizes.down('md')]: {
+			height: "33.3333%",
+			width: '75%',
+		},
+		[sizes.down('sm')]: {
+			height: "20%",
+			width: '50%',
+		},
+		[sizes.down('xs')]: {
+			height: "10%",
+			width: '100%',
 		},
 	},
 	goBackBtn: {
