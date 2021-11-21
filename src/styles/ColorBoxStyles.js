@@ -1,4 +1,5 @@
 import chroma from 'chroma-js';
+import sizes from '../sizes';
 
 const styles = {
 	root: {
@@ -11,6 +12,22 @@ const styles = {
 		marginBottom: '-3px',
 		'&:hover button': {
 			opacity: '1',
+		},
+		[sizes.down('lg')]: {
+			width: '20%',
+			height: props => (props.fullPalette ? '25%' : '50%'),
+		},
+		[sizes.down('md')]: {
+			width: '25%',
+			height: props => (props.fullPalette ? '20%' : '33.333%'),
+		},
+		[sizes.down('sm')]: {
+			width: '50%',
+			height: props => (props.fullPalette ? '10%' : '20%'),
+		},
+		[sizes.down('xs')]: {
+			width: '100%',
+			height: props => (props.fullPalette ? '5%' : '10%'),
 		},
 	},
 	content: {
