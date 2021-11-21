@@ -38,13 +38,13 @@ const styles = makeStyles(theme => ({
 		'& a': {
 			textDecoration: 'none',
 		},
-		[sizes.down('md')]: {
+		[sizes.down('sm')]: {
 			margin: '0',
 		},
 	},
 	button: {
 		margin: '0 0.5rem',
-		[sizes.down('md')]: {
+		[sizes.down('sm')]: {
 			margin: '0',
 		},
 	},
