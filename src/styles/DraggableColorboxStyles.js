@@ -41,7 +41,7 @@ const styles = {
 		justifyContent: 'space-between',
 		color: 'rgba(0,0,0,0.5)',
 		[sizes.down('sm')]: {
-			paddingBottom: '1px'
+			paddingBottom: '1px',
 		},
 	},
 	name: {
