@@ -10,14 +10,19 @@ const styles = makeStyles(theme => ({
 	drawer: {
 		width: drawerWidth,
 		flexShrink: 0,
+		height: '100vh'
 	},
 	drawerPaper: {
 		width: drawerWidth,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center'
 	},
 	drawerHeader: {
 		display: 'flex',
 		alignItems: 'center',
-		padding: theme.spacing(0, 1),
+		width:'100%',
+		padding: '0 8px',
 		// necessary for content to be below app bar
 		...theme.mixins.toolbar,
 		justifyContent: 'flex-end',
@@ -29,7 +34,6 @@ const styles = makeStyles(theme => ({
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'center',
-		margin: '0 auto',
 	},
 	btnWrap: {
 		display: 'flex',
@@ -39,7 +43,9 @@ const styles = makeStyles(theme => ({
 			fontSize: '0.8rem',
 		},
 	},
-
+	button: {
+		width: '50%',
+	},
 	content: {
 		flexGrow: 1,
 		padding: 0,
