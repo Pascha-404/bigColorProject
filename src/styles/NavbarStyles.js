@@ -1,3 +1,5 @@
+import sizes from '../sizes';
+
 const styles = {
 	navbar: {
 		display: 'flex',
@@ -8,6 +10,15 @@ const styles = {
 			width: '25rem',
 			display: 'inline-block',
 			marginLeft: '1rem',
+			[sizes.down('md')]: {
+				width: '20rem',
+			},
+			[sizes.down('sm')]: {
+				width: '18rem',
+			},
+			[sizes.down('xs')]: {
+				width: '10rem',
+			},
 		},
 		'& .rc-slider-track': {
 			backgroundColor: 'transparent',
@@ -39,6 +50,9 @@ const styles = {
 		'& a': {
 			textDecoration: 'none',
 			color: 'black',
+		},
+		[sizes.down('sm')]: {
+			display: 'none',
 		},
 	},
 	selectContainer: {
