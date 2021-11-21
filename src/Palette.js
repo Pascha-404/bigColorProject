@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
+import PaletteFooter from './PaletteFooter';
 import { withStyles } from "@material-ui/styles"
 import styles from "./styles/PaletteStyles"
 
@@ -36,7 +37,7 @@ class Palette extends Component {
 		));
 
 		return (
-			<div className={classes.Palette}>
+			<div className={classes.palette}>
 				<Navbar
 					level={level}
 					changeLevel={this.changeLevel}
@@ -46,12 +47,10 @@ class Palette extends Component {
 					showSlider
 				/>
 
-				<div className={classes.Colors}>{colorBoxes}</div>
+				<div className={classes.colors}>{colorBoxes}</div>
 
-				<footer className={classes.Footer}>
-					{paletteName}
-					<span className='emoji'>{emoji}</span>
-				</footer>
+				<PaletteFooter paletteName={paletteName} emoji={emoji}/>
+			
 			</div>
 		);
 	}
