@@ -1,12 +1,18 @@
 import sizes from '../sizes';
+import background from "./background.svg"
 
 const styles = {
 	root: {
-		backgroundColor: 'blue',
+		backgroundColor: '#350EAA',
+		backgroundImage: `url(${background})`,
 		height: '100vh',
 		display: 'flex',
 		alignItems: 'flex-start',
 		justifyContent: 'center',
+		overflow: 'scroll',
+		"&::-webkit-scrollbar": {
+			display: "none"
+		}
 	},
 	container: {
 		width: '50%',
