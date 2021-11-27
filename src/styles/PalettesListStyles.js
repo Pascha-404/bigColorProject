@@ -1,7 +1,16 @@
 import sizes from '../sizes';
-import background from "./background.svg"
+import background from './background.svg';
 
 const styles = {
+	'@global': {
+		'.fade-exit': {
+			opacity: '1',
+		},
+		'.fade-exit-active': {
+			opacity: '0',
+			transition: 'opacity 300ms ease-out',
+		},
+	},
 	root: {
 		backgroundColor: '#350EAA',
 		backgroundImage: `url(${background})`,
@@ -10,9 +19,9 @@ const styles = {
 		alignItems: 'flex-start',
 		justifyContent: 'center',
 		overflow: 'scroll',
-		"&::-webkit-scrollbar": {
-			display: "none"
-		}
+		'&::-webkit-scrollbar': {
+			display: 'none',
+		},
 	},
 	container: {
 		width: '50%',
