@@ -10,6 +10,7 @@ const styles = {
 	textfield: {
 		width: '100%',
 		height: '4.5rem',
+		marginBottom: '0.7rem'
 	},
 	btn: {
 		width: "100%",
