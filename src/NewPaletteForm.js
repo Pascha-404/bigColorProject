@@ -5,10 +5,12 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
-import DraggableColorList from './DraggableColorList';
+
 import { arrayMoveImmutable as arrayMove } from 'array-move';
+
 import NewPaletteFormNav from './NewPaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
+import DraggableColorList from './DraggableColorList';
 import styles from './styles/NewPaletteFormStyles';
 
 function NewPaletteForm(props) {
@@ -81,7 +83,6 @@ function NewPaletteForm(props) {
 
 	return (
 		<div className={classes.root}>
-
 			<NewPaletteFormNav
 				open={open}
 				handleDrawerOpen={handleDrawerOpen}
@@ -105,8 +106,11 @@ function NewPaletteForm(props) {
 				<div className={classes.drawerMain}>
 					<h2>Design Your Palette</h2>
 					<div className={classes.btnWrap}>
-						<Button variant='contained' color='secondary' onClick={clearPalette}
-						className={classes.button}>
+						<Button
+							variant='contained'
+							color='secondary'
+							onClick={clearPalette}
+							className={classes.button}>
 							clear palette
 						</Button>
 						<Button

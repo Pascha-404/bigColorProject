@@ -243,4 +243,4 @@ const palettes = [
 	},
 ];
 
-export default palettes
+export default palettes;

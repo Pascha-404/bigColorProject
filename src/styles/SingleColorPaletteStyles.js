@@ -21,15 +21,15 @@ const styles = {
 			textDecoration: 'none',
 		},
 		[sizes.down('md')]: {
-			height: "33.3333%",
+			height: '33.3333%',
 			width: '75%',
 		},
 		[sizes.down('sm')]: {
-			height: "20%",
+			height: '20%',
 			width: '50%',
 		},
 		[sizes.down('xs')]: {
-			height: "10%",
+			height: '10%',
 			width: '100%',
 		},
 	},

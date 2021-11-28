@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
 import {Link} from "react-router-dom"
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -8,6 +6,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from "@material-ui/styles"
+
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+
 import styles from "./styles/NavbarStyles"
 
 class Navbar extends Component {

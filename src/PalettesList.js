@@ -9,11 +9,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
+
 import { withStyles } from '@material-ui/core/styles';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import styles from './styles/PalettesListStyles';
 
 import MiniPalette from './MiniPalette';
+import styles from './styles/PalettesListStyles';
 
 export class PalettesList extends Component {
 	constructor(props) {

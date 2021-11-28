@@ -11,7 +11,7 @@ const styles = {
 		},
 		'&:hover svg': {
 			opacity: '1',
-		}
+		},
 	},
 	colors: {
 		backgroundColor: 'grey',
@@ -51,7 +51,7 @@ const styles = {
 		borderRadius: '3px',
 		color: 'white',
 		opacity: '0',
-		transition: 'opacity 0.3s ease-in'
+		transition: 'opacity 0.3s ease-in',
 	},
 };
 

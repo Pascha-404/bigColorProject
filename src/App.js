@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import Palette from './Palette';
+import { Route, Switch } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
 import seedPalettes from './seedPalettes';
 import { generatePalette } from './colorHelpers';
-import { Route, Switch } from 'react-router-dom';
+
 import PalettesList from './PalettesList';
 import SingleColorPalette from './SingleColorPalette';
 import NewPaletteForm from './NewPaletteForm';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import Palette from './Palette';
 import Page from './Page';
 
 class App extends Component {
@@ -58,6 +60,7 @@ class App extends Component {
 											/>
 										</Page>
 									)}></Route>
+
 								<Route
 									exact
 									path='/palette/new'
@@ -70,6 +73,7 @@ class App extends Component {
 											/>
 										</Page>
 									)}></Route>
+
 								<Route
 									exact
 									path='/palette/:id'
@@ -80,6 +84,7 @@ class App extends Component {
 											/>
 										</Page>
 									)}></Route>
+
 								<Route
 									exact
 									path='/palette/:paletteId/:colorId'

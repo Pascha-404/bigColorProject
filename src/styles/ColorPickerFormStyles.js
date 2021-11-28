@@ -5,18 +5,18 @@ const styles = {
 	colorPicker: {
 		width: '100% !important',
 		textAlign: 'center',
-		marginBottom: "1rem",
+		marginBottom: '1rem',
 	},
 	textfield: {
 		width: '100%',
 		height: '4.5rem',
-		marginBottom: '0.7rem'
+		marginBottom: '0.7rem',
 	},
 	btn: {
-		width: "100%",
-		height: "60px",
-		fontSize: "1.25rem"
-	}
+		width: '100%',
+		height: '60px',
+		fontSize: '1.25rem',
+	},
 };
 
 export default styles;
