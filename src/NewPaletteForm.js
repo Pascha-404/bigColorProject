@@ -7,6 +7,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 
 import { arrayMoveImmutable as arrayMove } from 'array-move';
+import seedPalettes from './seedPalettes';
 
 import NewPaletteFormNav from './NewPaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
@@ -70,7 +71,7 @@ function NewPaletteForm(props) {
 	const addRandomColor = () => {
 		let randomColor;
 		while (!randomColor) {
-			const palette = randomArray(props.palettes);
+			const palette = randomArray(seedPalettes);
 			const pickedColor = randomArray(palette.colors);
 			if (
 				colors.every(color => color.name.toLowerCase() !== pickedColor.name.toLowerCase())
