@@ -12,7 +12,6 @@ const styles = {
 		margin: '0 auto',
 		marginBottom: '-5px',
 		'&:hover svg': {
-			color: 'white',
 			transform: 'scale(1.5)',
 		},
 		[sizes.down('lg')]: {
@@ -49,6 +48,7 @@ const styles = {
 	},
 	deleteBtn: {
 		transition: 'all 500ms ease',
+		color: props => (chroma(props.color).luminance() <= 0.6 ? 'white' : 'black'),
 	},
 };
 
